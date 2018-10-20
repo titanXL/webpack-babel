@@ -29,11 +29,32 @@ module.exports = {
       },
       {
         test: /.css$/,
-        use: ["css-loader"]
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader",
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: "[name]__[local]__[hash:base64]",
+              sourceMap: true,
+              minimize: true
+            }
+          }
+        ]
       },
       {
-        test: /\.(png|svg|jpg}gif)$/,
-        use: ["file-loader"]
+        test: /\.(png|svg|jpg|gif)$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192
+            }
+          }
+        ]
       },
       {
         test: /\.(woff|woff2|eot|ttf}otf)$/,
