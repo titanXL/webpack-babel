@@ -6,10 +6,6 @@ window.onload = e => {
 	const t = new FeedbackSender();
 };
 
-var x = []
-function test() {
-	x.push(new Array(1000000).join('x'));
-}
 
 class FeedbackSender {
 	constructor() {
