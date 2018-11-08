@@ -12,19 +12,20 @@ class Analytics {
   constructor() {
     this.node = null;
     this.submitBtn = null;
-    this.isModalOpen = false;
     this.mask = null;
     this.closeBtn = null;
+    this.documentBody = document.querySelector("body");
+    this.isModalOpen = false;
     this.initGlobalListeners();
     this.destroyModal = this.destroyModal.bind(this);
   }
 
   initGlobalListeners() {
-    document.addEventListener("keydown", zEvent => {
-      if (zEvent.ctrlKey && zEvent.altKey && zEvent.code === "KeyE") {
+    document.addEventListener("keydown", keyEvent => {
+      if (keyEvent.ctrlKey && keyEvent.altKey && keyEvent.code === "KeyE") {
         this.toggleModal();
       }
-      if (zEvent.keyCode == 27 && this.node) {
+      if (keyEvent.keyCode == 27 && this.node) {
         this.destroyModal();
       }
     });
@@ -33,7 +34,7 @@ class Analytics {
   createModal() {
     this.node = document.createElement("div");
     this.isModalOpen = true;
-    this.node.classList = `${styles["md-modal"] + " " + styles["md-effect-1"]}`;
+    this.node.classList = `${styles["modal"]}`;
     this.node.innerHTML = this.createModalContent();
     this.mask = document.createElement("div");
     this.mask.classList = `${styles["modal-mask"]}`;
@@ -45,7 +46,7 @@ class Analytics {
 
   showModal() {
     setTimeout(() => {
-      this.node.classList += ` ${styles["md-show"]}`;
+      this.node.classList += ` ${styles["modal-visible"]}`;
       this.mask.classList += ` ${styles["mask-visible"]}`;
     }, 1);
   }
@@ -53,30 +54,28 @@ class Analytics {
   focusInput() {
     setTimeout(() => {
       this.node.querySelector(`textarea.${styles["user-feedback"]}`).focus();
-    }, 100)
+    }, 100);
   }
 
   createModalContent() {
-    return `<div class="${styles["md-content"]}"> 
+    return `<div class="${styles["content"]}"> 
                 <span class="${styles["modal-close"]}"></span>
                 <h3>Leave your feedback</h3> 
                 <div class="${styles["user-feedback-container"]}"> 
                   <textarea id="bla" class="${
-      styles["user-feedback"]
-      }" rows="10">
+                    styles["user-feedback"]
+                  }" rows="10">
                   </textarea>                
                 </div>
-                <div class="${styles["user-feedback-submit"]}">
-                  <button class="${
-      styles["user-feedback-submit-button"]
-      }">Submit</button> 
+                <div class="${styles["submit-container"]}">
+                  <button class="${styles["submit-button"]}">Submit</button> 
                 </div>
             </div>`;
   }
 
   bindEventHandlers() {
     this.submitBtn = this.node.querySelector(
-      `button.${styles["user-feedback-submit-button"]}`
+      `button.${styles["submit-button"]}`
     );
     this.closeBtn = this.node.querySelector(`span.${styles["modal-close"]}`);
 
@@ -86,26 +85,32 @@ class Analytics {
   }
 
   appendToDom() {
-    document.querySelector("body").appendChild(this.node);
-    document.querySelector("body").appendChild(this.mask);
+    this.documentBody.appendChild(this.node);
+    this.documentBody.appendChild(this.mask);
   }
 
   removeFromDom() {
-    document.querySelector("body").removeChild(this.node);
-    document.querySelector("body").removeChild(this.mask);
+    this.documentBody.removeChild(this.node);
+    this.documentBody.removeChild(this.mask);
   }
 
   destroyModal() {
-    this.node.classList = `${styles["md-modal"] + " " + styles["md-effect-1"]}`;
+    this.node.classList = `${styles["modal"]}`;
     this.mask.classList = `${styles["modal-mask"]}`;
+
     setTimeout(() => {
       this.removeFromDom();
       this.submitBtn.removeEventListener("click", this.destroyModal);
-      this.isModalOpen = false;
+      this.mask.removeEventListener("click", this.destroyModal);
+      this.closeBtn.removeEventListener("click", this.destroyModal);
       this.node = null;
       this.submitBtn = null;
+      this.mask = null;
+      this.closeBtn = null;
+      this.isModalOpen = false;
     }, 300);
   }
+
   toggleModal() {
     this.isModalOpen ? this.destroyModal() : this.createModal();
   }
