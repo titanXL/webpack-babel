@@ -12,7 +12,7 @@
   max-width: 630px;
   min-width: 320px;
   height: auto;
-  z-index: 2000;
+  z-index: 99999;
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -67,7 +67,7 @@
 .modal-mask {
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.05);
+  background: rgba(0, 0, 0, 0.08);
   -webkit-transform: scale(0.3);
   -moz-transform: scale(0.3);
   -ms-transform: scale(0.3);
@@ -76,8 +76,8 @@
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
   transition: all 0.3s;
-  position: relative;
-  z-index: 999;
+  position: fixed;
+  z-index: 9999;
 }
 
 .mask-visible {
@@ -98,7 +98,7 @@
   -moz-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.75);
   font-size: 1em;
-  z-index: 9999;
+  z-index: 999;
   -webkit-transform: scale(0.7);
   -moz-transform: scale(0.7);
   -ms-transform: scale(0.7);
@@ -141,6 +141,7 @@ h3 {
   border-radius: 6px;
   padding: 1em;
   outline: none;
+  color: #000;
 }
 
 .submit-container {
@@ -209,6 +210,6 @@ h3 {
   outline: none;
 }
 
-.user-feedback-submit-button:hover::before {
+.submit-button:hover::before {
   right: 0;
 }
