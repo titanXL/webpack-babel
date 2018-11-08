@@ -51,8 +51,9 @@ class Analytics {
   }
 
   focusInput() {
-    // TODO: fix the focus
-    this.node.querySelector(`textarea.${styles["user-feedback"]}`).focus();
+    setTimeout(() => {
+      this.node.querySelector(`textarea.${styles["user-feedback"]}`).focus();
+    }, 100)
   }
 
   createModalContent() {
@@ -61,14 +62,14 @@ class Analytics {
                 <h3>Leave your feedback</h3> 
                 <div class="${styles["user-feedback-container"]}"> 
                   <textarea id="bla" class="${
-                    styles["user-feedback"]
-                  }" rows="10">
+      styles["user-feedback"]
+      }" rows="10">
                   </textarea>                
                 </div>
                 <div class="${styles["user-feedback-submit"]}">
                   <button class="${
-                    styles["user-feedback-submit-button"]
-                  }">Submit</button> 
+      styles["user-feedback-submit-button"]
+      }">Submit</button> 
                 </div>
             </div>`;
   }
