@@ -85,13 +85,13 @@ class Analytics {
   }
 
   appendToDom() {
-    this.documentBody.appendChild(this.node);
     this.documentBody.appendChild(this.mask);
+    this.documentBody.appendChild(this.node);
   }
 
   removeFromDom() {
-    this.documentBody.removeChild(this.node);
     this.documentBody.removeChild(this.mask);
+    this.documentBody.removeChild(this.node);
   }
 
   destroyModal() {
